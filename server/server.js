@@ -1,0 +1,26 @@
+import express from 'express';
+import cors from "cors";
+import "dotenv/config"
+import connectDB from './configs/db.js';
+import userRouter from './Routes/userRoutes.js';
+import resumeRouter from './Routes/resumeRoutes.js';
+import aiRouter from './Routes/aiRoutes.js';
+
+const app=express();
+const PORT=process.env.PORT || 3000
+connectDB();
+
+app.use(express.json());
+app.use(cors());
+
+app.get('',(req,res)=>{
+    res.send("Server is alive...");
+})
+
+app.use('/api/users',userRouter);
+app.use('/api/resumes',resumeRouter);
+app.use('/api/ai',aiRouter)
+
+app.listen(PORT,()=>{
+    console.log(`Server is listening at port ${PORT}`)
+})
