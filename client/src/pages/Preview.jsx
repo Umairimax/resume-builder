@@ -8,7 +8,6 @@ import api from '../configs/api';
 
 const Preview=()=>{
     const {resumeId} = useParams();
-
     const [resumeData, setResumeData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
