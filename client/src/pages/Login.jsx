@@ -13,6 +13,7 @@ const Login=()=>{
     const urlState=query.get('state');
 
     const [state, setState] = React.useState(urlState || "login")
+    const [loading, setLoading]=React.useState(false);
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -22,6 +23,7 @@ const Login=()=>{
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true);
         try{
             const {data} = await api.post(`/api/users/${state}`, formData)
             dispatch(login(data))
@@ -29,6 +31,8 @@ const Login=()=>{
             toast.success(data.message);
         }catch(error){
             toast(error?.response?.data?.message || error.message);
+        }finally{
+            setLoading(false);
         }
 
     }
@@ -60,8 +64,27 @@ const Login=()=>{
                 <div className="mt-4 text-left text-green-500">
                     <button className="text-sm" type="reset">Forget password?</button>
                 </div>
-                <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:opacity-90 transition-opacity">
+
+
+                {/* <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:opacity-90 transition-opacity">
                     {state === "login" ? "Login" : "Sign up"}
+                </button> */}
+
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className={`mt-2 w-full h-11 rounded-full text-white bg-green-500 
+                    hover:opacity-90 transition-opacity flex items-center justify-center gap-2
+                    ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
+                >
+                    {loading ? (
+                        <>
+                            <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                            {state === "login" ? "Logging in..." : "Signing up..."}
+                        </>
+                    ) : (
+                        state === "login" ? "Login" : "Sign up"
+                    )}
                 </button>
                 <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-gray-500 text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-green-500 hover:underline">click here</a></p>
             </form>
