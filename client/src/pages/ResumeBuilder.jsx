@@ -139,8 +139,8 @@ const ResumeBuilder=()=>{
 
             <div className='max-w-7xl mx-auto px-4 pb-8'>
                 <div className='grid lg:grid-cols-12 gap-8'>
-                    <div className='relative lg:col-span-5 rounded-lg overflow-hidden'>
-                        <div className='bg-white rounded-lg shadow-sm  border border-gray-200 p-6 pt-1'>
+                    <div className='relative lg:col-span-5 rounded-lg overflow-hidden rounded-none'>
+                        <div className='bg-white rounded-lg shadow-sm  border border-gray-200 p-6 pt-1 rounded-none'>
                             <hr className='absolute top-0 left-0  right-0 border-2 border-gray-200' />
                             <hr className='absolute top-0 left-0 h-1 bg-gradient-to-r from-green-500 to-green-600 border-none transition-all duration-2000' style={{width:`${activeSectionIndex*100/(sections.length-1)}%`}}/>
 
@@ -151,15 +151,16 @@ const ResumeBuilder=()=>{
                                 </div>
                                 <div className='flex items-center'>
                                     {activeSectionIndex !==0 && (
-                                        <button onClick={()=>setActiveSectionIndex((prevIndex)=>Math.max(prevIndex-1,0))} className='flex tems-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all' disabled={activeSectionIndex===0}>
+                                        <button onClick={()=>setActiveSectionIndex((prevIndex)=>Math.max(prevIndex-1,0))} className='flex tems-center gap-1 p-3 rounded-none text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all' disabled={activeSectionIndex===0}>
                                             <ChevronLeft className='size-4'/> Previous
                                         </button>
                                     )}
-                                    <button onClick={()=>setActiveSectionIndex((prevIndex)=>Math.min(prevIndex+1,sections.length-1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex===sections.length-1 && 'opacity-50'}`} disabled={activeSectionIndex===sections.length-1}>
+                                    <button onClick={()=>setActiveSectionIndex((prevIndex)=>Math.min(prevIndex+1,sections.length-1))} className={`flex items-center gap-1 p-3 rounded-none text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex===sections.length-1 && 'opacity-50'}`} disabled={activeSectionIndex===sections.length-1}>
                                         <ChevronRight className='size-4'/> Next
                                     </button>
                                 </div>
                             </div>
+
 
                             <div className='space-y-6'>
                                 {activeSection.id==="personal" && (
@@ -187,7 +188,7 @@ const ResumeBuilder=()=>{
                                 )}
                             </div>
 
-                            <button onClick={()=>{toast.promise(saveResume, {loading:'Saving...'})}} className='bg-gradient-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md px-6 py-2 mt-6 text-sm'>
+                            <button onClick={()=>{toast.promise(saveResume, {loading:'Saving...'})}} className='bg-gradient-to-br from-blue-100 to-blue-200 ring-blue-300 text-blue-600 ring hover:ring-blue-400 transition-all rounded-none px-6 py-2 mt-6 text-sm'>
                                 Save Changes
                             </button>
 
@@ -197,7 +198,7 @@ const ResumeBuilder=()=>{
 
 
                     <div className='lg:col-span-7 max-lg:mt-6'>
-                        <div className='relative w-full'>
+                        {/* <div className='relative w-full'>
                             <div className='absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2'>
                                 {resumeData.public && (
                                     <button onClick={handleShare} className='flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-lg ring-blue-300 hover:ring transition-colors'>
@@ -217,7 +218,32 @@ const ResumeBuilder=()=>{
                                     <Download className='size-4' /> Download
                                 </button>
                             </div>
+                        </div> */}
+
+
+
+                        <div className='relative w-full'>
+                            <div className='absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2'>
+                                {resumeData.public && (
+                                    <button onClick={handleShare} className='flex items-center p-2 px-4 gap-2 text-xs bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 transition-colors'>
+                                        <ShareIcon className='size-4' /> Share
+                                    </button>
+                                )}
+                                <button onClick={changeResumeDataVisibility} className='flex items-center p-2 px-4 gap-2 text-xs bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 transition-colors'>
+                                    {resumeData.public ? <EyeIcon className='size-4'/> : <EyeOffIcon className='size-4'/>}
+                                    {resumeData.public ? 'Public' : 'Private'}
+                                </button>
+
+                                <button onClick={viewResume}
+                                    className='flex items-center p-2 px-4 gap-2 text-xs bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 transition-colors'> View
+                                </button>
+
+                                <button onClick={downloadResume} className='flex items-center gap-2 px-6 py-2 text-xs bg-blue-600 text-white border border-blue-700 hover:bg-blue-700 transition-colors'>
+                                    <Download className='size-4' /> Download
+                                </button>
+                            </div>
                         </div>
+
                         <ResumePreview data={resumeData} template={resumeData.template} accentColor={resumeData.accent_color} />
                     </div>
 

@@ -52,13 +52,78 @@ const ExperienceForm=({data, onChange})=>{
     }
 
     return(
+        // <div className='space-y-6'>
+        //     <div className='flex items-center justify-between'>
+        //         <div>
+        //             <h3 className='flex items-center gap-2 text-lg font-semibold text-gray-900 '>Professional Experience</h3>
+        //             <p className='text-sm text-gray-500'>Add your job experince here</p>
+        //         </div>
+        //         <button onClick={addExperience} className='flex items-center gap-2 px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors disabled:opacity-50'>
+        //             <Plus className='size-4' />
+        //             Add Experience
+        //         </button>
+        //     </div>
+
+        //     {data.length===0 ? (
+        //         <div className='text-center py-8 text-gray-500'>
+        //             <Briefcase className='w-12 h-12 mx-auto mb-3 text-gray-300' />
+        //             <p>No work experience added yet</p>
+        //             <p className="text-sm">Click "Add Experience" to get started</p>
+        //         </div>
+        //     ):(
+        //         <div className='space-y-4'>
+        //             {data.map((experience, index)=>(
+        //                 <div key={index} className='p-4 border border-gray-200 rounded-lg space-y-3'>
+        //                     <div className='flex justify-between items-start'>
+        //                         <h4>Experince #{index+1}</h4>
+        //                         <button onClick={()=>removeExperience(index)} className='text-red-500 hover:text-red-700 transition-colors'>
+        //                             <Trash2 className='size-4' />
+        //                         </button>
+        //                     </div>
+
+        //                     <div className='grid md:grid-cols-2 gap-3'>
+        //                         <input value={experience.company || ""} onChange={(e)=>updatedExperience(index,"company", e.target.value)} type="text" placeholder='Company Name' className='px-3 py-2 text-sm rounded-lg'/>
+        //                         <input value={experience.position || ""} onChange={(e)=>updatedExperience(index,"position", e.target.value)} type="text" placeholder='Job Title' className='px-3 py-2 text-sm rounded-lg'/>
+        //                         <input value={experience.start_date || ""} onChange={(e)=>updatedExperience(index,"start_date", e.target.value)} type="date" placeholder='Start Data' className='px-3 py-2 text-sm rounded-lg'/>
+        //                         <input value={experience.end_date || ""} onChange={(e)=>updatedExperience(index,"end_date", e.target.value)} type="date" disabled={experience.is_current} placeholder='End Data' className='px-3 py-2 text-sm rounded-lg disabled:bg-gray-100'/>
+        //                     </div>
+        //                     <label className='flex items-center gap-2'>
+        //                         <input type="checkbox" checked={experience.is_current || false} onChange={(e)=>updatedExperience(index,"is_current",e.target.checked? true : false)} className='rounded border-gray-300 text-blue-600 focus:ring-blue-600'/>
+        //                         <span className='text-sm text-gray-700'>Current working here</span>
+        //                     </label>
+        //                     <div className='space-y-2'>
+        //                         <div className='flex items-center justify-between'>
+        //                             <label className='text-sm font-medium text-gray-700'>Job Description</label>
+        //                             <button onClick={()=>generateDescription(index)} disabled={generatingIndex===index || !experience.position || !experience.company} className='flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50'>
+        //                                 {generatingIndex===index ? (
+        //                                     <Loader2 className='w-3 h-3 animate-spin' /> 
+        //                                 ):(
+        //                                     <Sparkles className='w-3 h-3' /> 
+        //                                 )}
+        //                                 {generatingIndex===index ? (
+        //                                     "Enhancing..."
+        //                                 ):(
+        //                                     "Enhance with AI"
+        //                                 )}
+        //                             </button>
+        //                         </div>
+        //                         <textarea value={experience.description || " "} onChange={(e)=>updatedExperience(index,"description", e.target.value)} rows={4} className='w-full text-sm px-3 py-2 rounded-lg resize-none' placeholder='Describe your key responsibilities and achievements...'/>
+        //                     </div>
+        //                 </div>
+        //             ))}
+        //         </div>
+        //     )}
+        // </div>
+
+
+
         <div className='space-y-6'>
             <div className='flex items-center justify-between'>
                 <div>
                     <h3 className='flex items-center gap-2 text-lg font-semibold text-gray-900 '>Professional Experience</h3>
                     <p className='text-sm text-gray-500'>Add your job experince here</p>
                 </div>
-                <button onClick={addExperience} className='flex items-center gap-2 px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors disabled:opacity-50'>
+                <button onClick={addExperience} className='flex items-center gap-2 px-3 py-1 text-sm bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 transition-colors disabled:opacity-50'>
                     <Plus className='size-4' />
                     Add Experience
                 </button>
@@ -73,7 +138,7 @@ const ExperienceForm=({data, onChange})=>{
             ):(
                 <div className='space-y-4'>
                     {data.map((experience, index)=>(
-                        <div key={index} className='p-4 border border-gray-200 rounded-lg space-y-3'>
+                        <div key={index} className='p-4 border border-gray-200 space-y-3'>
                             <div className='flex justify-between items-start'>
                                 <h4>Experince #{index+1}</h4>
                                 <button onClick={()=>removeExperience(index)} className='text-red-500 hover:text-red-700 transition-colors'>
@@ -82,19 +147,19 @@ const ExperienceForm=({data, onChange})=>{
                             </div>
 
                             <div className='grid md:grid-cols-2 gap-3'>
-                                <input value={experience.company || ""} onChange={(e)=>updatedExperience(index,"company", e.target.value)} type="text" placeholder='Company Name' className='px-3 py-2 text-sm rounded-lg'/>
-                                <input value={experience.position || ""} onChange={(e)=>updatedExperience(index,"position", e.target.value)} type="text" placeholder='Job Title' className='px-3 py-2 text-sm rounded-lg'/>
-                                <input value={experience.start_date || ""} onChange={(e)=>updatedExperience(index,"start_date", e.target.value)} type="date" placeholder='Start Data' className='px-3 py-2 text-sm rounded-lg'/>
-                                <input value={experience.end_date || ""} onChange={(e)=>updatedExperience(index,"end_date", e.target.value)} type="date" disabled={experience.is_current} placeholder='End Data' className='px-3 py-2 text-sm rounded-lg disabled:bg-gray-100'/>
+                                <input value={experience.company || ""} onChange={(e)=>updatedExperience(index,"company", e.target.value)} type="text" placeholder='Company Name' className='px-3 py-2 text-sm rounded-none'/>
+                                <input value={experience.position || ""} onChange={(e)=>updatedExperience(index,"position", e.target.value)} type="text" placeholder='Job Title' className='px-3 py-2 text-sm rounded-none'/>
+                                <input value={experience.start_date || ""} onChange={(e)=>updatedExperience(index,"start_date", e.target.value)} type="date" placeholder='Start Data' className='px-3 py-2 text-sm rounded-none'/>
+                                <input value={experience.end_date || ""} onChange={(e)=>updatedExperience(index,"end_date", e.target.value)} type="date" disabled={experience.is_current} placeholder='End Data' className='px-3 py-2 text-sm disabled:bg-gray-100 rounded-none'/>
                             </div>
                             <label className='flex items-center gap-2'>
-                                <input type="checkbox" checked={experience.is_current || false} onChange={(e)=>updatedExperience(index,"is_current",e.target.checked? true : false)} className='rounded border-gray-300 text-blue-600 focus:ring-blue-600'/>
-                                <span className='text-sm text-gray-700'>Current working here</span>
+                                <input type="checkbox" checked={experience.is_current || false} onChange={(e)=>updatedExperience(index,"is_current",e.target.checked? true : false)} className='border-gray-300 text-blue-600 focus:ring-blue-600 '/>
+                                <span className='text-sm text-gray-700 '>Current working here</span>
                             </label>
                             <div className='space-y-2'>
-                                <div className='flex items-center justify-between'>
+                                <div className='flex items-center justify-between '>
                                     <label className='text-sm font-medium text-gray-700'>Job Description</label>
-                                    <button onClick={()=>generateDescription(index)} disabled={generatingIndex===index || !experience.position || !experience.company} className='flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50'>
+                                    <button onClick={()=>generateDescription(index)} disabled={generatingIndex===index || !experience.position || !experience.company} className='flex items-center gap-1 px-2 py-1 text-xs bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100 transition-colors disabled:opacity-50'>
                                         {generatingIndex===index ? (
                                             <Loader2 className='w-3 h-3 animate-spin' /> 
                                         ):(
@@ -107,13 +172,17 @@ const ExperienceForm=({data, onChange})=>{
                                         )}
                                     </button>
                                 </div>
-                                <textarea value={experience.description || " "} onChange={(e)=>updatedExperience(index,"description", e.target.value)} rows={4} className='w-full text-sm px-3 py-2 rounded-lg resize-none' placeholder='Describe your key responsibilities and achievements...'/>
+                                <textarea value={experience.description || " "} onChange={(e)=>updatedExperience(index,"description", e.target.value)} rows={4} className='w-full text-sm px-3 py-2 resize-none rounded-none' placeholder='Describe your key responsibilities and achievements...'/>
                             </div>
                         </div>
                     ))}
                 </div>
             )}
         </div>
+
+
+
+
     )
 }
 
