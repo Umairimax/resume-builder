@@ -326,6 +326,8 @@ const Login = () => {
 
     const [state, setState] = React.useState(urlState || "login")
     const [loading, setLoading] = React.useState(false);
+    const [mailError, setMailError]=React.useState(false);
+    const [passwordError,setPasswordError]=React.useState(false);
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -350,6 +352,16 @@ const Login = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(name==="email" && value && !emailRegex.test(value)){
+            setMailError(true);
+        } else {
+            setMailError(false);
+        }
+
+        if(name==="password" && value.length<6){
+            setPasswordError(true);
+        }else{setPasswordError(false);}
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
@@ -431,6 +443,7 @@ const Login = () => {
                         required
                     />
                 </div>
+                {mailError && <p className="text-red-500 text-xs -mt-2 mb-1">Please enter a valid email address</p>}
 
                 {/* Password */}
                 <div className="flex items-center w-full bg-white border border-slate-200 h-11 overflow-hidden pl-4 gap-3 mb-2 focus-within:border-blue-400 transition-colors">
@@ -445,6 +458,7 @@ const Login = () => {
                         required
                     />
                 </div>
+                {passwordError && <p className="text-red-500 text-xs -mt-2 mb-1">Password must be atleast 6 characters</p>}
 
                 {/* Forgot password */}
                 <div className="text-right mb-4">
@@ -456,8 +470,8 @@ const Login = () => {
                 {/* Submit */}
                 <button
                     type="submit"
-                    disabled={loading}
-                    className={`w-full h-12 text-white bg-blue-600 hover:bg-blue-700 font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-blue-200 ${loading ? "opacity-70 cursor-not-allowed" : "active:scale-95"}`}
+                    disabled={loading || mailError || passwordError}
+                    className={`w-full h-12 text-white bg-blue-600 hover:bg-blue-700 font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-blue-200 ${loading || mailError || passwordError ? "opacity-70 cursor-not-allowed" : "active:scale-95"}`}
                 >
                     {loading ? (
                         <>
